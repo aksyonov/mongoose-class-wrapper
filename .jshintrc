@@ -1,0 +1,6 @@
+{
+  "node": true,
+  "esnext": true,
+  "lastsemic": true,
+  "expr": true
+}
