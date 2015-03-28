@@ -1,5 +1,6 @@
 import {deprecate} from 'util';
 import mongoose from 'mongoose';
+import loadClass from './index.js'
 
 let message = '[mongoose-class-wrapper] Model syntax is deprecated. Please check out readme and use new syntax instead.';
 
@@ -7,14 +8,8 @@ let initModel = deprecate(function initModel(schemaDef) {
   if (!schemaDef) {
     throw "You should provide schema definition object to model.";
   }
-  let staticObj = this.constructor;
-  let instanceObj = this.constructor.prototype;
-  let staticProps = Object.getOwnPropertyNames(staticObj);
-  let prototypeProps = Object.getOwnPropertyNames(instanceObj);
-  let instanceProps = prototypeProps.filter(name => {
-    return ['constructor', 'configure'].indexOf(name) == -1;
-  });
 
+  let proto = this.constructor.prototype;
   let schema = this.schema = new mongoose.Schema(schemaDef);
   let match = this.constructor.name.match(/^(.+?)Model$/);
   if (!match || match.length < 2) {
@@ -22,20 +17,12 @@ let initModel = deprecate(function initModel(schemaDef) {
   }
   let name = this.name = match[1];
 
+  if (proto.configure) {
+    proto.configure(schema);
+    proto.configure = null;
+  }
 
-  staticProps.forEach(name => {
-    let method = Object.getOwnPropertyDescriptor(staticObj, name);
-    if (typeof method.value == 'function') schema.static(name, method.value);
-  });
-
-  instanceProps.forEach(name => {
-    let method = Object.getOwnPropertyDescriptor(instanceObj, name);
-    if (typeof method.value == 'function') schema.method(name, method.value);
-    if (typeof method.get == 'function') schema.virtual(name).get(method.get);
-    if (typeof method.set == 'function') schema.virtual(name).set(method.set);
-  });
-
-  if (this.configure) this.configure(schema);
+  loadClass(schema, this.constructor);
 
   this[name] = this.model = mongoose.model(this.name, schema);
 }, message);
