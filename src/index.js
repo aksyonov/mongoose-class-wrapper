@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+export {Model} from './model.js'
 
 
 export default function loadClass(schema, klass) {

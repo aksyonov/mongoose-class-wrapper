@@ -58,6 +58,11 @@ userSchema.plugin(loadClass, UserModel);
 module.exports = mongoose.model('User', userSchema);
 ```
 
+## License
+This library is under the [MIT License][mit-url]
+
+
 [travis-image]: https://img.shields.io/travis/aksyonov/mongoose-class-wrapper/master.svg
 [travis-url]: https://travis-ci.org/aksyonov/mongoose-class-wrapper
 [babel-url]: http://babeljs.io/
+[mit-url]: http://opensource.org/licenses/MIT

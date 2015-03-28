@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import loadClass from '../';
 
-describe('Model', function () {
+describe('loadClass', function () {
   beforeEach(function () {
     mongoose.models = {};
     this.schema = new mongoose.Schema({name: String, pass: String});

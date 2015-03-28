@@ -1,3 +1,7 @@
+## [0.2.1] - 2015-03-28
+### Changed
+- Restored and deprecated old syntax.
+
 ## [0.2.0] - 2015-03-28
 ### Changed
 - New syntax. Now this is a plugin that does only one thing - wraps methods for model.
