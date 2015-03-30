@@ -1,6 +1,6 @@
 {
   "name": "mongoose-class-wrapper",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Tiny ES6 class-based wrapper for mongoose models.",
   "main": "index.js",
   "scripts": {
@@ -16,6 +16,12 @@
     "type" : "git",
     "url" : "https://github.com/aksyonov/mongoose-class-wrapper.git"
   },
+  "keywords": [
+    "mongoose",
+    "ES6",
+    "ES2015",
+    "class"
+  ],
   "peer-dependencies": {
     "mongoose": "^3.8.0"
   },
