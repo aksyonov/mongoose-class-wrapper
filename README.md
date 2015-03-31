@@ -1,4 +1,6 @@
 # mongoose-class-wrapper [![Build Status][travis-image]][travis-url]
+
+[![Join the chat at https://gitter.im/aksyonov/mongoose-class-wrapper](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/aksyonov/mongoose-class-wrapper?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Tiny ES6 class-based wrapper for mongoose model methods.
 
 ## Installation
