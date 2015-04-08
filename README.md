@@ -61,10 +61,11 @@ module.exports = mongoose.model('User', userSchema);
 ## Usage with ES7 decorators (experimental)
 
 This library supports [ES7 decorators proposal][decorators-url] which is supported by babel. To use it you should enable experimental `es7.decorators` feature in babel as described [here][babel-experimental-url].
+
 **Note**: If [ES7 decorators proposal][decorators-url] or it's support in babel will be changed or removed, it's support in this library will be changed or removed as well.
 
 Example (simple):
-```
+```js
 var mongoose = require('mongoose');
 var loadClass = require('mongoose-class-wrapper');
 
@@ -81,7 +82,7 @@ module.exports = mongoose.model('User', userSchema);
 ```
 
 Example (full usage of decorator):
-```
+```js
 var mongooseModel = require('mongoose-class-wrapper').mongooseModel;
 
 @mongooseModel({
