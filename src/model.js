@@ -1,6 +1,6 @@
 import {deprecate} from 'util';
 import mongoose from 'mongoose';
-import loadClass from './index.js'
+import loadClass from './index.js';
 
 let message = '[mongoose-class-wrapper] Model syntax is deprecated. Please check out readme and use new syntax instead.';
 

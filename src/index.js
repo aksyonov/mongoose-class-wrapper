@@ -1,7 +1,4 @@
-import mongoose from 'mongoose';
-
-
-export default function loadClass(schema, klass) {
+function wrap(schema, klass) {
   let proto = klass.prototype;
   let staticProps = Object.getOwnPropertyNames(klass);
   let prototypeProps = Object.getOwnPropertyNames(proto);
@@ -18,4 +15,12 @@ export default function loadClass(schema, klass) {
     if (typeof method.get == 'function') schema.virtual(name).get(method.get);
     if (typeof method.set == 'function') schema.virtual(name).set(method.set);
   });
+}
+
+export default function loadClass(schema, klass) {
+  if (klass) {
+    wrap(schema, klass);
+  } else {
+    return (klass) => wrap(schema, klass);
+  }
 }

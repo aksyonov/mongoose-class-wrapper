@@ -1,6 +1,6 @@
-## [0.2.1] - 2015-03-28
-### Changed
-- Restored and deprecated old syntax.
+## [0.3.0] - 2015-04-08
+### Added
+- Experimental ES7 decorator syntax.
 
 ## [0.2.0] - 2015-03-28
 ### Changed
@@ -9,5 +9,6 @@
 ## [0.1.0] - 2015-03-23
 - Initial public release
 
+[0.3.0]: https://github.com/aksyonov/mongoose-class-wrapper/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/aksyonov/mongoose-class-wrapper/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/aksyonov/mongoose-class-wrapper/compare/ad484b7...v0.1.0

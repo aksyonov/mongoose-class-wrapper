@@ -1,6 +1,6 @@
 {
   "name": "mongoose-class-wrapper",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Tiny ES6 class-based wrapper for mongoose models.",
   "main": "index.js",
   "scripts": {
@@ -26,7 +26,7 @@
     "mongoose": "^3.8.0"
   },
   "devDependencies": {
-    "babel": "^4.3.0",
+    "babel": "^5.0.10",
     "chai": "^2.1.1",
     "mocha": "^2.2.0",
     "mongoose": "^3.8.23",
