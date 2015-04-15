@@ -58,7 +58,7 @@ userSchema.plugin(loadClass, UserModel);
 module.exports = mongoose.model('User', userSchema);
 ```
 
-## Usage with ES7 decorators (experimental)
+## ES7 decorators
 
 This library supports [ES7 decorators proposal][decorators-url] which is supported by babel. To use it you should enable experimental `es7.decorators` feature in babel as described [here][babel-experimental-url].
 
@@ -84,6 +84,7 @@ module.exports = mongoose.model('User', userSchema);
 Example (full usage of decorator):
 ```js
 var mongooseModel = require('mongoose-class-wrapper').mongooseModel;
+var pre = require('mongoose-class-wrapper').pre;
 
 @mongooseModel({
   // schema definition
@@ -96,17 +97,26 @@ var mongooseModel = require('mongoose-class-wrapper').mongooseModel;
   // configuration function
   schema.index({name: 1, type: -1});
 })
+@pre('save', preSave)
 class User {
   // class methods
+  preSave() {}
 }
 
 // Export mongoose model
 module.exports = User;
 ```
 
+### `mongooseModel`
+
 First two parameters (second is optional) are arguments for [mongoose.Schema][mongoose-schema-url].
 Last optional parameter is function for configuring schema. Some schema methods (create indexes, register plugins, etc.) should be called before model is created, you can do it in this function. It will be called with one argument = mongoose schema.
 
+### `index`, `plugin`, `pre`, `post`
+
+Optional decorators that wrap common used mongoose schema methods with the same signature. These decorators must be used between `mongooseModel` decorator and class definition.
+
+Also `pre` and `post` decorators can accept method name instead of function.
 
 ## License
 This library is under the [MIT License][mit-url]
