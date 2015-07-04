@@ -101,5 +101,19 @@ describe('other decorators', function () {
       user.validate();
       expect(user.validated).to.be.true;
     });
+
+    it('should decorate a method', function () {
+      @mongooseModel({name: String, email: String})
+      class User {
+        @post('validate')
+        hook() {
+          this.validated = true;
+        }
+      }
+
+      let user = new User({name: 'Jon'})
+      user.validate();
+      expect(user.validated).to.be.true;
+    });
   });
 });

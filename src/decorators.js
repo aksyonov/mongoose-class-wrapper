@@ -1,3 +1,4 @@
+'use strict';
 import mongoose from 'mongoose';
 import loadClass from './index.js';
 
@@ -10,17 +11,21 @@ function schemaDecorator(name, args) {
 }
 
 function schemaHookDecorator(name, [hook, fn]) {
-  if (typeof fn == 'string') {
+  if (typeof fn === 'string') {
     const method = fn;
     fn = function (...args) {
       return this[method](...args);
     };
   }
-  return schemaDecorator(name, [hook, fn]);
+  if (fn) return schemaDecorator(name, [hook, fn]);
+
+  return (target, key, descriptor) => {
+    schemaDecorator(name, [hook, descriptor.value])(target.constructor);
+  };
 }
 
 export function mongooseModel(schemaDef, options, configure) {
-  if (typeof options == 'function' && configure === undefined) {
+  if (typeof options === 'function' && configure === undefined) {
     [options, configure] = [{}, options];
   }
 

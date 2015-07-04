@@ -1,3 +1,5 @@
+'use strict';
+
 function wrap(schema, klass) {
   let proto = klass.prototype;
   let staticProps = Object.getOwnPropertyNames(klass);
