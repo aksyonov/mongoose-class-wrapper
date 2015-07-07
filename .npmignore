@@ -1,2 +1,7 @@
 src/
 test/
+.babelrc
+.editorconfig
+.jshintrc
+.eslintrc
+.travis.yml

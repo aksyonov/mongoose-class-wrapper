@@ -1,7 +1,7 @@
 {
   "name": "mongoose-class-wrapper",
-  "version": "0.4.0",
-  "description": "Tiny ES6 class-based wrapper for mongoose models with ES7 decorators support.",
+  "version": "0.5.0",
+  "description": "Tiny ES6 class-based wrapper for mongoose models.",
   "main": "index.js",
   "scripts": {
     "build": "babel src -d lib -b regenerator",
@@ -20,9 +20,7 @@
     "mongoose",
     "ES6",
     "ES2015",
-    "class",
-    "ES7",
-    "decorators"
+    "class"
   ],
   "peer-dependencies": {
     "mongoose": "^4.0.0"

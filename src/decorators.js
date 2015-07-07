@@ -1,7 +1,9 @@
 'use strict';
+import {deprecate} from 'util';
 import mongoose from 'mongoose';
 import loadClass from './index.js';
 
+let message = "[mongoose-class-wrapper] ES7 Decorators are available in 'mongoose-decorators' package.";
 
 function schemaDecorator(name, args) {
   return (target) => {
@@ -24,7 +26,7 @@ function schemaHookDecorator(name, [hook, fn]) {
   };
 }
 
-export function mongooseModel(schemaDef, options, configure) {
+export var mongooseModel = deprecate(function mongooseModel(schemaDef, options, configure) {
   if (typeof options === 'function' && configure === undefined) {
     [options, configure] = [{}, options];
   }
@@ -38,20 +40,20 @@ export function mongooseModel(schemaDef, options, configure) {
     loadClass(schema, target);
     return mongoose.model(target.name, schema);
   };
-}
+}, message);
 
-export function index(...args) {
+export var index = deprecate(function index(...args) {
   return schemaDecorator('index', args);
-}
+}, message);
 
-export function plugin(...args) {
+export var plugin = deprecate(function plugin(...args) {
   return schemaDecorator('plugin', args);
-}
+}, message);
 
-export function post(...args) {
+export var post = deprecate(function post(...args) {
   return schemaHookDecorator('post', args);
-}
+}, message);
 
-export function pre(...args) {
+export var pre = deprecate(function pre(...args) {
   return schemaHookDecorator('pre', args);
-}
+}, message);
