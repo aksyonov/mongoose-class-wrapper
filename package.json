@@ -2,19 +2,19 @@
   "name": "mongoose-class-wrapper",
   "version": "0.5.0",
   "description": "Tiny ES6 class-based wrapper for mongoose models.",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "build": "babel src -d lib -b regenerator",
+    "build": "./node_modules/.bin/babel src -d lib",
     "watch": "npm run build -- -w",
     "prepublish": "npm run build",
     "pretest": "npm run build",
-    "test": "mocha"
+    "test": "mocha --compilers js:babel-register"
   },
   "author": "Sergey Aksyonov",
   "license": "MIT",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/aksyonov/mongoose-class-wrapper.git"
+    "type": "git",
+    "url": "https://github.com/aksyonov/mongoose-class-wrapper.git"
   },
   "keywords": [
     "mongoose",
@@ -26,11 +26,15 @@
     "mongoose": "^4.0.0"
   },
   "devDependencies": {
-    "babel": "^5.0.10",
+    "babel-cli": "^6.4.5",
+    "babel-plugin-add-module-exports": "^0.1.2",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-stage-0": "^6.3.13",
     "chai": "^3.0.0",
     "mocha": "^2.2.0",
     "mongoose": "^4.0.0",
     "sinon": "^1.13.0",
     "sinon-chai": "^2.7.0"
-  }
+  },
+  "dependencies": {}
 }

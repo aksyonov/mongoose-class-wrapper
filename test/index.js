@@ -30,17 +30,6 @@ describe('loadClass', function () {
       expect(User).to.respondTo('foo');
     });
 
-    it('should support decorator syntax', function () {
-      let {schema} = this;
-      @loadClass(schema)
-      class UserModel {
-        foo() {}
-      }
-      let User = mongoose.model('User', schema);
-
-      expect(User).to.respondTo('foo');
-    });
-
     it('should register static methods in model', function () {
       class UserModel {
         static register() {}
@@ -80,6 +69,27 @@ describe('loadClass', function () {
       let user = new User({password: 'pass'});
 
       expect(user._pass).to.eql('pass');
+    });
+
+    it('should register static getters in model', function () {
+      class UserModel {
+        static get maxUsers() { return 100; }
+      }
+      loadClass(this.schema, UserModel);
+      let User = mongoose.model('User', this.schema);
+
+      expect(new User().maxUsers).to.eql(100);
+    });
+
+    it('should register setters in model', function () {
+      class UserModel {
+        static set maxUsers(value) { this._maxUsers = value; }
+      }
+      loadClass(this.schema, UserModel);
+      let User = mongoose.model('User', this.schema);
+      let user = new User({password: 'pass'});
+      user.maxUsers = 100;
+      expect(user._maxUsers).to.eql(100);
     });
   });
 });
