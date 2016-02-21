@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import loadClass from '../';
+import loadClass from '../src';
 
 describe('loadClass', function () {
   beforeEach(function () {
