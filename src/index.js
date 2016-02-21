@@ -19,12 +19,4 @@ function wrap(schema, klass) {
   });
 }
 
-function loadClass(schema, klass) {
-  if (klass) {
-    wrap(schema, klass);
-  } else {
-    return (klass) => wrap(schema, klass);
-  }
-}
-
-module.exports = loadClass;
+module.exports = wrap;

@@ -30,17 +30,6 @@ describe('loadClass', function () {
       expect(User).to.respondTo('foo');
     });
 
-    it('should support decorator syntax', function () {
-      let {schema} = this;
-      @loadClass(schema)
-      class UserModel {
-        foo() {}
-      }
-      let User = mongoose.model('User', schema);
-
-      expect(User).to.respondTo('foo');
-    });
-
     it('should register static methods in model', function () {
       class UserModel {
         static register() {}
