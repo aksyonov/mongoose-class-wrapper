@@ -9,7 +9,7 @@ $ npm i mongoose mongoose-class-wrapper --save
 
 ## Usage
 
-Designed to use with [babel][babel-url] or io.js (with `--es_staging` flag).
+You can use this plugin with latest Node.js versions (v4 LTS or v5 Stable) as they support ES6 class syntax (in strict mode). For previous versions use [babel][babel-url].
 
 Example:
 ```js
@@ -66,7 +66,5 @@ This library is under the [MIT License][mit-url]
 [travis-url]: https://travis-ci.org/aksyonov/mongoose-class-wrapper
 [babel-url]: http://babeljs.io/
 [decorators-url]: https://github.com/wycats/javascript-decorators
-[babel-experimental-url]: https://babeljs.io/docs/usage/experimental/#usage
-[mongoose-schema-url]: http://mongoosejs.com/docs/guide.html#definition
 [mongoose-decorators-url]: https://github.com/aksyonov/mongoose-decorators
 [mit-url]: http://opensource.org/licenses/MIT
