@@ -1,13 +1,16 @@
 'use strict';
 
-function wrap(schema, klass) {
-  let proto = klass.prototype;
-  let staticProps = Object.getOwnPropertyNames(klass);
+function wrap(schema, target) {
+  let proto = target.prototype;
+  let parent = Object.getPrototypeOf(target);
+  let staticProps = Object.getOwnPropertyNames(target);
   let prototypeProps = Object.getOwnPropertyNames(proto);
   let instanceProps = prototypeProps.filter(name => name !== 'constructor');
 
+  if (parent.name) wrap(schema, parent);
+
   staticProps.forEach(name => {
-    let method = Object.getOwnPropertyDescriptor(klass, name);
+    let method = Object.getOwnPropertyDescriptor(target, name);
     if (typeof method.value == 'function') schema.static(name, method.value);
   });
 

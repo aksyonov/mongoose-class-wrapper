@@ -71,4 +71,46 @@ describe('loadClass', function () {
       expect(user._pass).to.eql('pass');
     });
   });
+
+  describe('inheritance', function () {
+    class Resource {
+      foo() {
+        return 'foo';
+      }
+
+      static list() {
+        return [1, 2];
+      }
+    }
+
+    it('should register base class methods', function () {
+      class Book extends Resource {}
+
+      loadClass(this.schema, Book);
+      let BookModel = mongoose.model('Book', this.schema);
+      let book = new BookModel();
+
+      expect(book.foo()).to.eq('foo');
+      expect(BookModel.list()).to.eql([1, 2]);
+    });
+
+    it('should allow using super in methods', function () {
+      class Book extends Resource {
+        foo() {
+          return `${super.foo()}bar`;
+        }
+
+        static list() {
+          return super.list().concat(3, 4);
+        }
+      }
+
+      loadClass(this.schema, Book);
+      let BookModel = mongoose.model('Book', this.schema);
+      let book = new BookModel();
+
+      expect(book.foo()).to.eq('foobar');
+      expect(BookModel.list()).to.eql([1, 2, 3, 4]);
+    });
+  });
 });
