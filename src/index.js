@@ -9,6 +9,10 @@ function wrap(schema, target) {
 
   if (parent.name) wrap(schema, parent);
 
+  if (target.schema && typeof target.schema == 'object') {
+    schema.add(target.schema);
+  }
+
   staticProps.forEach(name => {
     let method = Object.getOwnPropertyDescriptor(target, name);
     if (typeof method.value == 'function') schema.static(name, method.value);
