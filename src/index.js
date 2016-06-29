@@ -21,7 +21,7 @@ function wrap(schema, target, hooks) {
   }
 
   // Only add a hook if it has not already been added
-  function add_hook(type, hook){
+  function addHook(type, hook){
     let index = hooks.indexOf(hook);
     if (index < 0){
       hooks.push(hook)
@@ -32,9 +32,9 @@ function wrap(schema, target, hooks) {
   // Add middleware hooks
   if (target.hooks && typeof target.hooks == 'object') {
     target.hooks.pre = target.hooks.pre || [];
-    target.hooks.pre.forEach(function(hook) {add_hook('pre',hook)})
+    target.hooks.pre.forEach(function(hook) {addHook('pre',hook)})
     target.hooks.post = target.hooks.post || [];
-    target.hooks.post.forEach(function(hook) {add_hook('post',hook)})
+    target.hooks.post.forEach(function(hook) {addHook('post',hook)})
   }
 
   // Add static methods
