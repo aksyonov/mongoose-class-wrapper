@@ -30,6 +30,7 @@
     "babel-register": "^6.5.2",
     "chai": "^3.0.0",
     "mocha": "^2.2.0",
+    "mockgoose": "^6.0.3",
     "mongoose": "^4.0.0"
   }
 }

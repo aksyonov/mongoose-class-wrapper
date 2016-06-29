@@ -1,10 +1,34 @@
 import mongoose from 'mongoose';
+import mockgoose from 'mockgoose';
 import loadClass from '../src';
 
 describe('loadClass', function () {
-  beforeEach(function () {
+
+  before(function (done) {
+    mockgoose(mongoose).then(function() {
+      mongoose.connect('in_memory_database', done);
+    });
+  });
+
+  after(function (done) {
+    mongoose.unmock(done)
+  })
+
+  beforeEach(function (done) {
     mongoose.models = {};
-    this.schema = new mongoose.Schema({name: String, pass: String});
+    this.schema = new mongoose.Schema({
+      name: String,
+      pass: String,
+      saves: {
+        type: Number,
+        default: 0
+      }
+    });
+    this.schema.pre('save', function(next) {
+      this.saves += 1;
+      next()
+    })
+    mockgoose.reset(done);
   });
 
   describe('initialization', function () {
@@ -19,6 +43,21 @@ describe('loadClass', function () {
       expect(User).to.respondTo('foo');
     });
 
+    it('should not affect pre save hook', function (done) {
+      class UserModel {}
+      this.schema.plugin(loadClass, UserModel);
+      let User = mongoose.model('User', this.schema);
+      let user = new User({ name: 'Henry' });
+
+      expect(user.name).to.equal('Henry');
+      expect(user.saves).to.equal(0);
+
+      user.save(function(error, _user){
+        expect(_user.saves).to.equal(1);
+        done(error);
+      })
+    });
+
     it('should support schema attribute', function () {
       class UserModel {}
       UserModel.schema = { age: Number }
@@ -28,6 +67,32 @@ describe('loadClass', function () {
 
       expect(user.name).to.equal('Henry')
       expect(user.age).to.equal(24)
+    });
+
+
+    it('should support model hooks', function (done) {
+      class UserModel {}
+      UserModel.hooks = {
+        pre: [
+          function(hook) {
+            hook('save', function(next) {
+              this.saves = 1000;
+              next()
+            })
+          }
+        ]
+      }
+      this.schema.plugin(loadClass, UserModel);
+      let User = mongoose.model('User', this.schema);
+      let user = new User({ name: 'Henry' });
+
+      expect(user.name).to.equal('Henry');
+      expect(user.saves).to.equal(0);
+
+      user.save(function(error, _user){
+        expect(_user.saves).to.equal(1000);
+        done(error);
+      })
     });
 
     it('should support direct function call', function () {
@@ -101,6 +166,17 @@ describe('loadClass', function () {
       }
     }
 
+    Resource.hooks = {
+      pre: [
+        function(hook) {
+          hook('save', function(next) {
+            this.version += 1;
+            next()
+          })
+        }
+      ]
+    }
+
     it('should register base class schema', function () {
       class Book extends Resource {}
 
@@ -109,6 +185,56 @@ describe('loadClass', function () {
       let book = new BookModel();
 
       expect(book.version).to.equal(0)
+    });
+
+    it('should allow child class schema additions', function () {
+      class Book extends Resource {}
+      Book.schema = { title: String }
+
+      loadClass(this.schema, Book);
+      let BookModel = mongoose.model('Book', this.schema);
+      let book = new BookModel({ title: 'A Book' });
+
+      expect(book.version).to.equal(0)
+      expect(book.title).to.equal('A Book')
+    });
+
+    it('should register base class hooks', function (done) {
+      class Book extends Resource {}
+
+      loadClass(this.schema, Book);
+      let BookModel = mongoose.model('Book', this.schema);
+      let book = new BookModel();
+
+      expect(book.version).to.equal(0);
+      book.save(function(error, _book){
+        expect(_book.version).to.equal(1);
+        done(error);
+      })
+    });
+
+    it('should allow child class hook additions', function (done) {
+      class Book extends Resource {}
+      Book.hooks = {
+        pre: [
+          function(hook) {
+            hook('save', function(next) {
+              this.version += 1000;
+              next()
+            })
+          }
+        ]
+      }
+
+      loadClass(this.schema, Book);
+      let BookModel = mongoose.model('Book', this.schema);
+      let book = new BookModel();
+
+      expect(book.version).to.equal(0);
+      book.save(function(error, _book){
+        expect(_book.version).to.equal(1001);
+        done(error);
+      })
     });
 
     it('should register base class methods', function () {
