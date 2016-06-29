@@ -19,6 +19,17 @@ describe('loadClass', function () {
       expect(User).to.respondTo('foo');
     });
 
+    it('should support schema attribute', function () {
+      class UserModel {}
+      UserModel.schema = { age: Number }
+      loadClass(this.schema, UserModel);
+      let User = mongoose.model('User', this.schema);
+      let user = new User({ name: 'Henry', age: 24 })
+
+      expect(user.name).to.equal('Henry')
+      expect(user.age).to.equal(24)
+    });
+
     it('should support direct function call', function () {
       class UserModel {
         foo() {}
@@ -82,6 +93,23 @@ describe('loadClass', function () {
         return [1, 2];
       }
     }
+
+    Resource.schema = {
+      version: {
+        type: Number,
+        default: 0
+      }
+    }
+
+    it('should register base class schema', function () {
+      class Book extends Resource {}
+
+      loadClass(this.schema, Book);
+      let BookModel = mongoose.model('Book', this.schema);
+      let book = new BookModel();
+
+      expect(book.version).to.equal(0)
+    });
 
     it('should register base class methods', function () {
       class Book extends Resource {}

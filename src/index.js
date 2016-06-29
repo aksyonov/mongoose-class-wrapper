@@ -33,7 +33,6 @@ function wrap(schema, target) {
   // Add methods and virtuals
   instanceProps.forEach(function (name) {
     var method = Object.getOwnPropertyDescriptor(proto, name);
-    console.log(name,method);
     if (typeof method.value == 'function') schema.method(name, method.value);
     if (typeof method.get == 'function') schema.virtual(name).get(method.get);
     if (typeof method.set == 'function') schema.virtual(name).set(method.set);
