@@ -11,7 +11,7 @@ $ npm i mongoose mongoose-class-wrapper --save
 
 You can use this plugin with latest Node.js versions (v4 LTS or v5 Stable) as they support ES6 class syntax (in strict mode). For previous versions use [babel][babel-url].
 
-### Example
+### Basic Example
 
 ```js
 import mongoose from 'mongoose';
@@ -55,9 +55,9 @@ userSchema.plugin(loadClass, UserModel);
 export default mongoose.model('User', userSchema);
 ```
 
-### Inheritance
+### Inheritance Example
 
-```
+```js
 import mongoose from 'mongoose';
 import loadClass from 'mongoose-class-wrapper';
 
@@ -73,23 +73,20 @@ Resource.schema = {
 
 // Add hooks to base class
 Resource.hooks = {
-  pre: [
-    function(hook) {
-      hook('save', function(next) {
-        this.version += 1;
-        next()
-      })
+  pre: {
+    save: function(next) {
+      this.version += 1;
+      next();
     }
-  ]
+  }
 }
 
-var schema = new mongoose.Schema({});
+var schema = new mongoose.Schema({
+  title: String,
+  author: String
+});
 
 class Book extends Resource {}
-
-Book.schema = {
-  title: String
-}
 
 // Add schema, hooks and methods from class to schema
 schema.plugin(loadClass, Book);

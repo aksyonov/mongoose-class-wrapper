@@ -73,14 +73,12 @@ describe('loadClass', function () {
     it('should support model hooks', function (done) {
       class UserModel {}
       UserModel.hooks = {
-        pre: [
-          function(hook) {
-            hook('save', function(next) {
-              this.saves = 1000;
-              next()
-            })
+        pre: {
+          save: function(next) {
+            this.saves = 1000;
+            next()
           }
-        ]
+        }
       }
       this.schema.plugin(loadClass, UserModel);
       let User = mongoose.model('User', this.schema);
@@ -167,14 +165,12 @@ describe('loadClass', function () {
     }
 
     Resource.hooks = {
-      pre: [
-        function(hook) {
-          hook('save', function(next) {
-            this.version += 1;
-            next()
-          })
+      pre: {
+        save: function(next) {
+          this.version += 1;
+          next()
         }
-      ]
+      }
     }
 
     it('should register base class schema', function () {
@@ -216,14 +212,12 @@ describe('loadClass', function () {
     it('should allow child class hook additions', function (done) {
       class Book extends Resource {}
       Book.hooks = {
-        pre: [
-          function(hook) {
-            hook('save', function(next) {
-              this.version += 1000;
-              next()
-            })
+        pre: {
+          save: function(next) {
+            this.version += 1000;
+            next()
           }
-        ]
+        }
       }
 
       loadClass(this.schema, Book);
