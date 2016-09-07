@@ -1,5 +1,5 @@
 # mongoose-class-wrapper [![Build Status][travis-image]][travis-url]
-Tiny ES6 class-based wrapper for mongoose model methods.
+Tiny ES2015 class-based wrapper for mongoose model methods.
 
 ## Installation
 
@@ -9,13 +9,21 @@ $ npm i mongoose mongoose-class-wrapper --save
 
 ## Usage
 
-You can use this plugin with latest Node.js versions (v4 LTS or v5 Stable) as they support ES6 class syntax (in strict mode). For previous versions use [babel][babel-url].
+You can use this plugin with latest Node.js versions (at least v4 LTS) as they support ES2015 class syntax (in strict mode). For previous versions use [babel][babel-url].
 
 ### Basic Example
 
 ```js
-import mongoose from 'mongoose';
-import loadClass from 'mongoose-class-wrapper';
+// Importing modules
+const mongoose = require('mongoose');
+const loadClass = require('mongoose-class-wrapper');
+//   for babel:
+// import mongoose from 'mongoose';
+// import loadClass from 'mongoose-class-wrapper';
+//   for typescript:
+// import mongoose = require('mongoose');
+// import loadClass = require('mongoose-class-wrapper');
+
 
 // Create mongoose schema
 var userSchema = new mongoose.Schema({
@@ -96,9 +104,9 @@ export default mongoose.model('Book', schema);
 
 ```
 
-## ES7 decorators
+## Experimental decorators
 
-ES7 decorators for mongoose models are available in [mongoose-decorators][mongoose-decorators-url] package.
+Experimental decorators for mongoose models are available in [mongoose-decorators][mongoose-decorators-url] package.
 
 ## License
 This library is under the [MIT License][mit-url]
