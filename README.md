@@ -21,7 +21,7 @@ const loadClass = require('mongoose-class-wrapper');
 // import mongoose from 'mongoose';
 // import loadClass from 'mongoose-class-wrapper';
 //   for typescript:
-// import mongoose = require('mongoose');
+// import * as mongoose from 'mongoose';
 // import loadClass = require('mongoose-class-wrapper');
 
 

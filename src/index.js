@@ -19,11 +19,11 @@ function wrap(schema, target, hooks = []) {
   if (target.hooks && typeof target.hooks == 'object') {
     for (let hookType in target.hooks){
       for (let hookAction in target.hooks[hookType]){
-        let hook = target.hooks[hookType][hookAction]
+        let hook = target.hooks[hookType][hookAction];
         let index = hooks.indexOf(hook);
         if (index < 0){
-          hooks.push(hook)
-          schema[hookType](hookAction,hook)
+          hooks.push(hook);
+          schema[hookType](hookAction, hook);
         }
       }
     }

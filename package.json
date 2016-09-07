@@ -2,7 +2,8 @@
   "name": "mongoose-class-wrapper",
   "version": "0.8.0",
   "description": "Tiny ES6 class-based wrapper for mongoose models.",
-  "main": "lib",
+  "main": "lib/index.js",
+  "typings": "index.d.ts",
   "scripts": {
     "build": "babel src -d lib",
     "watch": "npm run build -- -w",
