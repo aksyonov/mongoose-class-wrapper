@@ -1,6 +1,8 @@
 # mongoose-class-wrapper [![Build Status][travis-image]][travis-url]
 Tiny ES2015 class-based wrapper for mongoose model methods.
 
+**Note: Since [v4.7.0](https://github.com/Automattic/mongoose/blob/master/History.md#470--2016-11-23), Mongoose already supports ES2015 classes ([PR reference](https://github.com/Automattic/mongoose/pull/4668)).**
+
 ## Installation
 
 ```
