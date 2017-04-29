@@ -58,8 +58,13 @@ class UserModel {
 
 }
 
+//posible options, for instance if you want to ignore getter and setters put
+options={
+	ignore_getters_and_setters:true
+}
+
 // Add methods from class to schema
-userSchema.plugin(loadClass, UserModel);
+userSchema.plugin(loadClass, {target:UserModel,options:options});
 
 // Export mongoose model
 export default mongoose.model('User', userSchema);

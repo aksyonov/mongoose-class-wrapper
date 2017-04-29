@@ -1,2 +1,2 @@
-declare function loadClass(schema: any, target: any): void;
+declare function loadClass(schema: any, {target: any,options: object}:object): void;
 export = loadClass;

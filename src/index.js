@@ -1,6 +1,7 @@
 'use strict';
 
-function wrap(schema, target, hooks = []) {
+function wrap(schema,params, hooks = []) {
+  let {options={},target=params} = params;
   let proto = target.prototype;
   let parent = Object.getPrototypeOf(target);
   let staticProps = Object.getOwnPropertyNames(target);
@@ -39,8 +40,11 @@ function wrap(schema, target, hooks = []) {
   instanceProps.forEach(name => {
     let method = Object.getOwnPropertyDescriptor(proto, name);
     if (typeof method.value == 'function') schema.method(name, method.value);
-    if (typeof method.get == 'function') schema.virtual(name).get(method.get);
-    if (typeof method.set == 'function') schema.virtual(name).set(method.set);
+    if (!options.ignore_getters_and_setters){
+      if (typeof method.get == 'function') schema.virtual(name).get(method.get);
+      if (typeof method.set == 'function') schema.virtual(name).set(method.set);
+    }
+    
   });
 }
 
