@@ -59,8 +59,8 @@ class UserModel {
 }
 
 //posible options, for instance if you want to ignore getter and setters put
-options={
-	ignore_getters_and_setters:true
+const options={
+	ignoreGettersAndSetters:true
 }
 
 // Add methods from class to schema
